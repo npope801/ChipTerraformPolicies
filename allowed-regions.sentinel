@@ -1,0 +1,9 @@
+import "tfplan"
+
+allowed_regions = ["us-west-1", "eu-central-1"]
+
+oversteppingProviders = tfconfig.filter_attribute_not_in_list(tfconfig.providers.aws, "region", allowed_regions, true)
+
+main = rule {
+    length(oversteppingProviders["messages"]) is 0
+}
